@@ -1,0 +1,197 @@
+#:kivy 2.0.0
+#:import format_size_mb utils.format_size_mb
+
+<MainController>:
+    orientation: 'vertical'
+    padding: dp(10)
+    spacing: dp(8)
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(50)
+        Label:
+            text: '图片瘦身大师 v1.0'
+            font_size: dp(20)
+            bold: True
+            color: 0.2, 0.6, 1, 1
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(50)
+        spacing: dp(8)
+        Button:
+            text: '选择文件夹'
+            on_press: root.select_folder()
+            disabled: root.is_compressing or root.is_scanning
+        Button:
+            text: '选择图片'
+            on_press: root.select_images()
+            disabled: root.is_compressing
+        Button:
+            text: '清空'
+            on_press: root.clear_selection()
+            disabled: root.is_compressing or root.image_count == 0
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(40)
+        Label:
+            text: f'图片: {root.image_count} 张 | {format_size_mb(root.total_size_mb)}'
+            halign: 'left'
+            text_size: self.width, None
+        Label:
+            text: root.selected_folder or '未选择'
+            halign: 'right'
+            text_size: self.width, None
+            color: 0.5, 0.5, 0.5, 1
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(120)
+        orientation: 'vertical'
+        spacing: dp(4)
+        padding: dp(8)
+        canvas.before:
+            Color:
+                rgba: 0.95, 0.95, 0.95, 1
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(8)]
+
+        Label:
+            text: '压缩设置'
+            font_size: dp(14)
+            bold: True
+            size_hint_y: None
+            height: dp(25)
+
+        GridLayout:
+            cols: 4
+            spacing: dp(8)
+            size_hint_y: None
+            height: dp(70)
+
+            Label:
+                text: '质量:'
+                size_hint_x: 0.4
+            BoxLayout:
+                size_hint_x: 1
+                spacing: dp(4)
+                ToggleButton:
+                    text: '低'
+                    group: 'quality'
+                    state: 'normal' if root.quality != 'low' else 'down'
+                    on_press: root.quality = 'low'
+                ToggleButton:
+                    text: '中'
+                    group: 'quality'
+                    state: 'down' if root.quality == 'medium' else 'normal'
+                    on_press: root.quality = 'medium'
+                ToggleButton:
+                    text: '高'
+                    group: 'quality'
+                    state: 'normal' if root.quality != 'high' else 'down'
+                    on_press: root.quality = 'high'
+
+            Label:
+                text: '格式:'
+                size_hint_x: 0.4
+            BoxLayout:
+                size_hint_x: 1
+                spacing: dp(4)
+                ToggleButton:
+                    text: '原格式'
+                    group: 'format'
+                    state: 'down' if root.output_format == 'original' else 'normal'
+                    on_press: root.output_format = 'original'
+                ToggleButton:
+                    text: 'JPG'
+                    group: 'format'
+                    state: 'down' if root.output_format == 'jpg' else 'normal'
+                    on_press: root.output_format = 'jpg'
+                ToggleButton:
+                    text: 'PNG'
+                    group: 'format'
+                    state: 'down' if root.output_format == 'png' else 'normal'
+                    on_press: root.output_format = 'png'
+
+            Label:
+                text: '保存:'
+                size_hint_x: 0.4
+            BoxLayout:
+                size_hint_x: 1
+                spacing: dp(4)
+                ToggleButton:
+                    text: '添加后缀'
+                    group: 'mode'
+                    state: 'down' if root.output_mode == 'suffix' else 'normal'
+                    on_press: root.output_mode = 'suffix'
+                ToggleButton:
+                    text: '新目录'
+                    group: 'mode'
+                    state: 'down' if root.output_mode == 'newdir' else 'normal'
+                    on_press: root.output_mode = 'newdir'
+                ToggleButton:
+                    text: '覆盖'
+                    group: 'mode'
+                    state: 'down' if root.output_mode == 'overwrite' else 'normal'
+                    on_press: root.output_mode = 'overwrite'
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(90)
+        orientation: 'vertical'
+        spacing: dp(4)
+        padding: dp(8)
+        canvas.before:
+            Color:
+                rgba: 0.95, 0.95, 0.95, 1
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(8)]
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(25)
+            Label:
+                text: root.progress_text
+                halign: 'left'
+                text_size: self.width, None
+                color: 0.3, 0.3, 0.3, 1
+            Label:
+                text: root.saved_text
+                halign: 'right'
+                text_size: self.width, None
+                color: 0.2, 0.7, 0.2, 1
+
+        ProgressBar:
+            value: root.progress_value
+            max: 100
+            size_hint_y: None
+            height: dp(25)
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(50)
+        spacing: dp(8)
+
+        Button:
+            text: '开始压缩'
+            on_press: root.start_compress()
+            disabled: root.is_compressing or root.is_scanning or root.image_count == 0
+            background_color: 0.2, 0.7, 0.3, 1
+
+        Button:
+            text: '停止'
+            on_press: root.stop_compress()
+            disabled: not root.is_compressing
+            background_color: 0.8, 0.3, 0.2, 1
+
+        Label:
+            text: root.status_text
+            halign: 'right'
+            text_size: self.width, None
+            size_hint_x: 2
+            color: 0.4, 0.4, 0.4, 1
