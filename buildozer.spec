@@ -9,13 +9,14 @@ requirements = python3,kivy==2.2.0,pillow,android
 orientation = portrait
 fullscreen = 0
 
-# Android 配置（必须直接在 [app] 下面）
+# Android 配置
 android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 android.api = 30
 android.minapi = 21
 android.sdk = 30
-android.ndk = 23c
+android.ndk = 28c
 android.ndk_api = 21
+android.build_tools = 30.0.3
 android.enable_androidx = True
 android.accept_sdk_license = True
 android.debug = 1
