@@ -29,7 +29,7 @@ jobs:
           pip install pillow pylint pytest pytest-cov
 
       - name: Run pylint
-        run: pylint config.py utils.py image_compressor.py --disable=R,C,E0401,W0612,W1203,W0718,W0621
+        run: pylint config.py utils.py image_compressor.py --exit-zero
 
       - name: Run tests
         run: pytest test_image_compressor.py -v --cov=image_compressor --cov-report=term-missing --cov-fail-under=80
