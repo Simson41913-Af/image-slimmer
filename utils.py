@@ -21,7 +21,7 @@ def setup_logger(name: str = __name__, level: int = logging.INFO) -> logging.Log
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         ))
         log.addHandler(handler)
-    return logger
+    return log
 
 
 logger = setup_logger()
