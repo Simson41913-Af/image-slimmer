@@ -1,11 +1,11 @@
 [app]
 title = 图片瘦身大师
 package.name = imageslimmer
-package.domain = com.yourcompany
+package.domain = com.afatools
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 1.0.0
-requirements = python3,kivy==2.2.0,pillow,android
+requirements = python3,kivy==2.2.0,pillow
 orientation = portrait
 fullscreen = 0
 
