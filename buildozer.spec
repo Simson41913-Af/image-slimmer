@@ -10,15 +10,15 @@ orientation = portrait
 fullscreen = 0
 
 [android]
-permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,MANAGE_EXTERNAL_STORAGE
-api = 31
-minapi = 21
-sdk = 33
-ndk = 23b
-ndk_api = 21
-enable_androidx = True
-accept_sdk_license = True
-debug = 1
+android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,MANAGE_EXTERNAL_STORAGE
+android.api = 30
+android.minapi = 21
+android.sdk = 30
+android.ndk = 23c
+android.ndk_api = 21
+android.enable_androidx = True
+android.accept_sdk_license = True
+android.debug = 1
 
 [buildozer]
 log_level = 2
