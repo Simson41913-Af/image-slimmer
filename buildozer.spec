@@ -9,8 +9,8 @@ requirements = python3,kivy==2.2.0,pillow,android
 orientation = portrait
 fullscreen = 0
 
-[android]
-android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,MANAGE_EXTERNAL_STORAGE
+# Android 配置（必须直接在 [app] 下面）
+android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 android.api = 30
 android.minapi = 21
 android.sdk = 30
@@ -22,4 +22,4 @@ android.debug = 1
 
 [buildozer]
 log_level = 2
-warn_on_root = 0
+warn_on_root = 1
