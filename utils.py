@@ -13,14 +13,14 @@ from config import SUPPORTED_EXTENSIONS
 # ============ 日志 ============
 def setup_logger(name: str = __name__, level: int = logging.INFO) -> logging.Logger:
     """配置日志记录器"""
-    logger = logging.getLog(name)
-    logger.setLevel(level)
-    if not logger.handlers:
+    log = logging.getLogger(name)
+    log.setLevel(level)
+    if not log.handlers:
         handler = logging.StreamHandler()
         handler.setFormatter(logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         ))
-        logger.addHandler(handler)
+        log.addHandler(handler)
     return logger
 
 
